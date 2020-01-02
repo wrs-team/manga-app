@@ -11,9 +11,6 @@ import { DetailsScreen } from '../pages/Item';
 //   },
 //   {
 //     headerMode: 'none',
-//     transitionConfig: () => ({
-//       screenInterpolator: SlideFromRightIOS,
-//     }),
 //     gesturesEnabled: true,
 //   },
 // );
@@ -21,6 +18,7 @@ import { DetailsScreen } from '../pages/Item';
 const HomeNavigator = createStackNavigator(
   { Home: HomeScreen, Details: DetailsScreen },
   {
+    headerMode: 'none',
     mode: 'card',
     navigationOptions: params => ({
       gesturesEnabled: true,
@@ -47,25 +45,25 @@ const HomeNavigator = createStackNavigator(
           ],
         };
       },
-      // headerTitleInterpolator: sceneProps => {
-      //   const { layout, position, scene } = sceneProps;
-      //   const { index } = scene;
+      headerTitleInterpolator: sceneProps => {
+        const { layout, position, scene } = sceneProps;
+        const { index } = scene;
 
-      //   return {
-      //     opacity: position.interpolate({
-      //       inputRange: [index - 1, index, index + 1],
-      //       outputRange: [0, 1, 0],
-      //     }),
-      //     transform: [
-      //       {
-      //         translateX: position.interpolate({
-      //           inputRange: [index - 1, index, index + 1],
-      //           outputRange: [-50, 0, 50],
-      //         }),
-      //       },
-      //     ],
-      //   };
-      // },
+        return {
+          opacity: position.interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [0, 1, 0],
+          }),
+          transform: [
+            {
+              translateX: position.interpolate({
+                inputRange: [index - 1, index, index + 1],
+                outputRange: [-50, 0, 50],
+              }),
+            },
+          ],
+        };
+      },
     }),
   },
 );
